@@ -3,7 +3,7 @@ import { Link } from "@reach/router";
 import Container from 'react-bootstrap/Container';
 import {Row, Col, Form, Button, Nav, Navbar, Card, Tab, Tabs, Modal, Table} from 'react-bootstrap';
 
-
+const serverName = "https://cloudflare_general_assign.ace-ye.workers.dev/"
 
 const initialFormData = Object.freeze({
   title: "",
@@ -69,7 +69,7 @@ const Posts = () => {
           headers: { 'Content-Type': 'application/json', Accept: 'application/json'},
           body: JSON.stringify(formData)
         };
-    await fetch('http://localhost:8787/posts', requestOptions).then(function(response) {
+    await fetch(serverName + "/posts", requestOptions).then(function(response) {
       console.log(response.text())
     });
     alert("You post has been submitted!");
@@ -91,7 +91,7 @@ const Posts = () => {
           headers: { 'Content-Type': 'application/json', Accept: 'application/json'},
           body: JSON.stringify(commentFormData)
         };
-    const resp = await fetch('http://localhost:8787/comments', requestOptions);
+    const resp = await fetch(serverName + '/comments', requestOptions);
     alert("You comment has been submitted!");
     window.location.reload(false);
   };
@@ -108,7 +108,7 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       const resp = await fetch(
-        "http://localhost:8787/posts"
+        serverName + "/posts"
       );
       const postsResp = await resp.json();
       setPosts(postsResp);
